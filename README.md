@@ -37,25 +37,29 @@ catapult/
 └── README.md                   # This file
 ```
 
-## Quick Start
-
-### Prerequisites
+## Prerequisites
 
 - **Python 3.12** (required; Python 3.13+ is not supported due to library incompatibility)
 - pip
 
 > **Note:** This project requires Python 3.12 because some dependencies (such as pydantic and its core libraries) are not yet compatible with Python 3.13 or above. Attempting to use Python 3.13+ will result in installation errors.
 
-### Virtual Environment Setup
+## Running Locally
 
-**Important**: Always use a virtual environment to avoid conflicts with system packages.
+### Step 1: Clone and Setup
 
-1. Create a virtual environment:
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd catapult
+```
+
+2. Create a virtual environment:
 ```bash
 python3.12 -m venv venv
 ```
 
-2. Activate the virtual environment:
+3. Activate the virtual environment:
 ```bash
 # On macOS/Linux:
 source venv/bin/activate
@@ -64,21 +68,45 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
-3. Verify the virtual environment is active (you should see `(venv)` in your terminal prompt)
-
-### Installation
-
-1. Install dependencies (make sure your virtual environment is activated):
+4. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Run the application:
+### Step 2: Run the Application
+
+**Option A: Using Python module (Recommended for development)**
 ```bash
 python -m src.catapult.main
 ```
 
+**Option B: Using uvicorn directly**
+```bash
+uvicorn src.catapult.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### Step 3: Verify the Application
+
 The API will be available at `http://localhost:8000`
+
+Test the endpoints:
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Readiness check
+curl http://localhost:8000/ready
+
+# Metrics
+curl http://localhost:8000/metrics
+
+# API documentation
+open http://localhost:8000/docs
+```
+
+### Step 4: Stop the Application
+
+Press `Ctrl+C` to stop the application. The event loop will be properly cleaned up.
 
 ## Testing
 
