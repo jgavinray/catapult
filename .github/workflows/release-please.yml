@@ -17,3 +17,5 @@ jobs:
         with:
           release-type: python
           token: ${{ secrets.GH_PR_TOKEN }}
+          # ✅ Pinning to stable version before unshift bug
+          release-please-version: 16.16.2
