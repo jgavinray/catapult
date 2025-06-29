@@ -1,16 +1,18 @@
+import atexit
+import time
+from datetime import UTC, datetime
+
+import uvicorn
 from fastapi import FastAPI
 from prometheus_fastapi_instrumentator import Instrumentator
-import time
-import uvicorn
-import atexit
-from datetime import datetime, timezone
+
+from .event_loop import EventLoop
 from .metrics import (
+    ACTIVE_REQUESTS,
     REQUEST_COUNT,
     REQUEST_LATENCY,
-    ACTIVE_REQUESTS,
     get_metrics_response,
 )
-from .event_loop import EventLoop
 
 # Create FastAPI app
 app = FastAPI(
@@ -66,33 +68,33 @@ async def prometheus_middleware(request, call_next):
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
+    return {"status": "healthy", "timestamp": datetime.now(UTC).isoformat()}
 
 
 @app.get("/ready")
 async def ready_check():
     """Health check endpoint"""
     # Check Jira connection
-    if None != None:
+    if None is not None:
         return {
             "status": "not ready",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
     # Check ArgoCD connection
-    if None != None:
+    if None is not None:
         return {
             "status": "not ready",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
     # Check FireHydrant connection
-    if None != None:
+    if None is not None:
         return {
             "status": "not ready",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
-    return {"status": "ready", "timestamp": datetime.now(timezone.utc).isoformat()}
+    return {"status": "ready", "timestamp": datetime.now(UTC).isoformat()}
 
 
 @app.get("/metrics")

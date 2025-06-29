@@ -2,8 +2,8 @@
 Tests for event loop module.
 """
 
-import pytest
 import time
+
 from src.catapult.event_loop import EventLoop
 
 

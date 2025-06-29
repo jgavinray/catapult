@@ -2,13 +2,12 @@
 Tests for metrics module.
 """
 
-import pytest
 from src.catapult.metrics import (
-    REQUEST_COUNT,
-    REQUEST_LATENCY,
     ACTIVE_REQUESTS,
     CUSTOM_COUNTER,
     CUSTOM_GAUGE,
+    REQUEST_COUNT,
+    REQUEST_LATENCY,
     get_metrics_response,
 )
 

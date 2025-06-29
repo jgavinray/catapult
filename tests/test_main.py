@@ -2,8 +2,8 @@
 Tests for main application endpoints.
 """
 
-import pytest
 from fastapi.testclient import TestClient
+
 from src.catapult.main import app
 
 client = TestClient(app)

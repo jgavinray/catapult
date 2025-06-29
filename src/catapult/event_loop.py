@@ -1,16 +1,15 @@
-import asyncio
-import time
-import threading
-from typing import Optional, Callable
 import logging
+import threading
+import time
+from collections.abc import Callable
 
 
 class EventLoop:
     def __init__(self, check_interval: int = 15):
         self.check_interval = check_interval
         self.is_running = False
-        self.loop_thread: Optional[threading.Thread] = None
-        self.state_check_callback: Optional[Callable] = None
+        self.loop_thread: threading.Thread | None = None
+        self.state_check_callback: Callable | None = None
         self.logger = logging.getLogger(__name__)
 
     def set_state_check_callback(self, callback: Callable):
