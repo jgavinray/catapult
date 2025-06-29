@@ -17,6 +17,11 @@ The application consists of three main components:
 - **Health & Readiness Checks**: Separate endpoints for health (`/health`) and readiness (`/ready`) monitoring
 - **Background Event Loop**: Threaded event loop that runs every 15 seconds for state monitoring
 - **Graceful Shutdown**: Proper cleanup of background processes on application exit
+- **UTC Timestamp Support**: Timestamp in UTC format
+- **Comprehensive Testing Setup**: Includes tests for main application, metrics module, and event loop
+- **Code Formatting with Black**: Code formatting tool for consistent code style
+- **Linting with Ruff**: Code linting tool for code quality
+- **Conventional Commit Enforcement**: Commit messages follow conventional commit format
 
 ## Project Structure
 
