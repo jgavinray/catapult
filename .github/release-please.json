@@ -1,7 +1,0 @@
-{
-  "releaseType": "python",
-  "packageName": "catapult",
-  "includeV": true,
-  "initialVersion": "0.1.0",
-  "bumpMinorPreMajor": true
-} 
