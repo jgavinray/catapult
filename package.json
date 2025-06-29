@@ -1,0 +1,9 @@
+{
+  "name": "catapult",
+  "version": "0.0.0",
+  "description": "A FastAPI application with Prometheus metrics",
+  "devDependencies": {
+    "@commitlint/cli": "^18.0.0",
+    "@commitlint/config-conventional": "^18.0.0"
+  }
+} 
