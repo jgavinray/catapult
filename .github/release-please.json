@@ -1,4 +1,5 @@
 {
   "releaseType": "python",
-  "packageName": "catapult"
+  "packageName": "catapult",
+  "includeV": true
 } 
