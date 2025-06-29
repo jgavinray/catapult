@@ -5,4 +5,5 @@ bumpPatchForMinorPreMajor: true
 includeV: true
 releaseLabels:
   - release
-  - release-please 
+  - release-please
+manifestFile: .release-please-manifest.json 
