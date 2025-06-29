@@ -1,4 +1,4 @@
-name: Release Please
+name: Manual Release Please
 
 on:
   push:
@@ -10,12 +10,25 @@ permissions:
   issues: write
 
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          release-type: python
-          token: ${{ secrets.GH_PR_TOKEN }}
-          # ✅ Pinning to stable version before unshift bug
-          release-please-version: 16.16.2
+          node-version: 20
+
+      - name: Install release-please v16.16.2
+        run: npm install -g release-please@16.16.2
+
+      - name: Run release-please manually
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PR_TOKEN }}
+        run: |
+          release-please release-pr \
+            --token="${GITHUB_TOKEN}" \
+            --repo-url="${{ github.repository }}" \
+            --release-type=python \
+            --default-branch=main
