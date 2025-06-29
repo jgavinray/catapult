@@ -5,4 +5,5 @@ prometheus-fastapi-instrumentator==6.1.0
 pydantic==2.6.0
 python-multipart==0.0.6
 pytest==7.4.3
-httpx==0.25.2 
+httpx==0.25.2
+black==23.12.1 
