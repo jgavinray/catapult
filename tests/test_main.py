@@ -1,11 +1,13 @@
 """
 Tests for main application endpoints.
 """
+
 import pytest
 from fastapi.testclient import TestClient
 from src.catapult.main import app
 
 client = TestClient(app)
+
 
 def test_health_endpoint():
     """Test health endpoint returns correct format."""
@@ -16,6 +18,7 @@ def test_health_endpoint():
     assert "timestamp" in data
     assert data["status"] == "healthy"
 
+
 def test_ready_endpoint():
     """Test ready endpoint returns correct format."""
     response = client.get("/ready")
@@ -25,6 +28,7 @@ def test_ready_endpoint():
     assert "timestamp" in data
     assert data["status"] in ["ready", "not ready"]
 
+
 def test_metrics_endpoint():
     """Test metrics endpoint returns Prometheus format."""
     response = client.get("/metrics")
@@ -32,4 +36,4 @@ def test_metrics_endpoint():
     assert "text/plain" in response.headers["content-type"]
     content = response.text
     assert "# HELP" in content
-    assert "# TYPE" in content 
+    assert "# TYPE" in content
