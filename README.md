@@ -2,6 +2,40 @@
 
 A base HTTP API built with FastAPI that exposes Prometheus metrics and includes a background event loop for state monitoring.
 
+## Table of Contents
+
+- [Architecture](#architecture)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Running Locally](#running-locally)
+  - [Step 1: Clone and Setup](#step-1-clone-and-setup)
+  - [Step 2: Run the Application](#step-2-run-the-application)
+  - [Step 3: Verify the Application](#step-3-verify-the-application)
+  - [Step 4: Stop the Application](#step-4-stop-the-application)
+- [Testing](#testing)
+- [Commit Types](#commit-types)
+- [API Endpoints](#api-endpoints)
+  - [Core Endpoints](#core-endpoints)
+  - [Health Check](#health-check)
+  - [Readiness Check](#readiness-check)
+  - [Metrics](#metrics)
+- [Prometheus Metrics](#prometheus-metrics)
+  - [HTTP Metrics](#http-metrics)
+  - [Custom Metrics](#custom-metrics)
+- [Event Loop](#event-loop)
+  - [Configuration](#configuration)
+  - [Customization](#customization)
+- [Development](#development)
+  - [Running in Development Mode](#running-in-development-mode)
+  - [Production Deployment](#production-deployment)
+  - [Environment Variables](#environment-variables)
+- [Monitoring](#monitoring)
+  - [Prometheus Configuration](#prometheus-configuration)
+  - [Health Check Monitoring](#health-check-monitoring)
+- [Dependencies](#dependencies)
+- [License](#license)
+
 ## Architecture
 
 The application consists of three main components:
