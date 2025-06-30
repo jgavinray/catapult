@@ -334,13 +334,18 @@ curl -f http://localhost:8000/ready
 
 ## Dependencies
 
-- `fastapi==0.104.1` - Web framework
-- `uvicorn[standard]==0.24.0` - ASGI server
-- `prometheus-client==0.19.0` - Prometheus metrics
-- `prometheus-fastapi-instrumentator==6.1.0` - FastAPI Prometheus integration
-- `pydantic==2.6.0` - Data validation
-- `python-multipart==0.0.6` - Form data parsing
-- `pytest==7.4.3` - Testing framework
-- `httpx==0.25.2` - HTTP client for testing
+### System Requirements
 
-## License
+- **Python**: 3.12 (required; Python 3.13+ is not supported due to library incompatibility)
+- **Git**: Latest stable version for version control
+- **Operating Systems**: 
+  - Linux (Debian 12+, Ubuntu 24.04+, Rocky Linux 8+) - **Recommended**
+  - macOS (tested on macOS 15.5.0)
+  - Windows (Windows 10/11 with WSL2 recommended)
+- **Memory**: Minimum 512MB RAM (1GB+ recommended)
+- **Disk Space**: At least 100MB free space
+- **Network**: Internet access for package installation and external service connections
+
+### Python Dependencies
+
+For a complete list of Python library dependencies, see [requirements.txt](requirements.txt).
