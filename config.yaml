@@ -1,0 +1,34 @@
+ catapult:
+  server:
+    host: 0.0.0.0
+    port: 8000
+    reload: false
+    log_level: info
+  event_loop:
+    check_interval: 15
+    enabled: true
+  app_name: Catapult API
+  app_description: A base HTTP API with Prometheus metrics
+  app_version: 1.0.0
+
+jira:
+  enabled: false
+  base_url: https://yourcompany.atlassian.net
+  username: your-email@company.com
+  api_token: your-jira-api-token
+  timeout: 30
+
+argocd:
+  enabled: false
+  base_url: https://argocd.yourcompany.com
+  username: admin
+  password: your-argocd-password
+  token: your-argocd-token
+  timeout: 30
+  verify_ssl: true
+
+firehydrant:
+  enabled: false
+  base_url: https://api.firehydrant.io
+  api_token: your-firehydrant-token
+  timeout: 30

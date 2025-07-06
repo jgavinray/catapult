@@ -6,13 +6,18 @@ A base HTTP API built with FastAPI that exposes Prometheus metrics and includes 
 
 - [Architecture](#architecture)
 - [Features](#features)
+- [Configuration](#configuration)
+  - [YAML Configuration](#yaml-configuration)
+  - [Environment Variables](#environment-variables)
+  - [External Services](#external-services)
 - [Project Structure](#project-structure)
 - [Prerequisites](#prerequisites)
 - [Running Locally](#running-locally)
   - [Step 1: Clone and Setup](#step-1-clone-and-setup)
-  - [Step 2: Run the Application](#step-2-run-the-application)
-  - [Step 3: Verify the Application](#step-3-verify-the-application)
-  - [Step 4: Stop the Application](#step-4-stop-the-application)
+  - [Step 2: Configuration Setup](#step-2-configuration-setup)
+  - [Step 3: Run the Application](#step-3-run-the-application)
+  - [Step 4: Verify the Application](#step-4-verify-the-application)
+  - [Step 5: Stop the Application](#step-5-stop-the-application)
 - [Testing](#testing)
 - [Commit Types](#commit-types)
 - [API Endpoints](#api-endpoints)
@@ -24,12 +29,15 @@ A base HTTP API built with FastAPI that exposes Prometheus metrics and includes 
   - [HTTP Metrics](#http-metrics)
   - [Custom Metrics](#custom-metrics)
 - [Event Loop](#event-loop)
-  - [Configuration](#configuration)
+  - [Configuration](#event-loop-configuration)
   - [Customization](#customization)
+- [External Service Clients](#external-service-clients)
+  - [Jira Integration](#jira-integration)
+  - [ArgoCD Integration](#argocd-integration)
+  - [FireHydrant Integration](#firehydrant-integration)
 - [Development](#development)
   - [Running in Development Mode](#running-in-development-mode)
   - [Production Deployment](#production-deployment)
-  - [Environment Variables](#environment-variables)
 - [Monitoring](#monitoring)
   - [Prometheus Configuration](#prometheus-configuration)
   - [Health Check Monitoring](#health-check-monitoring)
@@ -38,24 +46,117 @@ A base HTTP API built with FastAPI that exposes Prometheus metrics and includes 
 
 ## Architecture
 
-The application consists of three main components:
+The application consists of five main components:
 
+- **Configuration System** (`src/catapult/config.py`) - YAML-based configuration with Pydantic validation
 - **FastAPI Application** (`src/catapult/main.py`) - HTTP server with health, readiness, and metrics endpoints
+- **External Service Clients** - Jira, ArgoCD, and FireHydrant API integration
 - **Prometheus Metrics** (`src/catapult/metrics.py`) - Centralized metrics definitions and collection
 - **Event Loop** (`src/catapult/event_loop.py`) - Background thread that performs periodic state checks
 
 ## Features
 
 - **FastAPI Framework**: Modern, fast web framework for building APIs
+- **YAML Configuration System**: Comprehensive configuration management with Pydantic validation
+- **External Service Integration**: Support for Jira, ArgoCD, and FireHydrant APIs
 - **Prometheus Integration**: Built-in metrics collection and exposure via `/metrics` endpoint
 - **Health & Readiness Checks**: Separate endpoints for health (`/health`) and readiness (`/ready`) monitoring
-- **Background Event Loop**: Threaded event loop that runs every 15 seconds for state monitoring
+- **Environment Variable Overrides**: Configuration values can be overridden via environment variables
+- **Background Event Loop**: Configurable threaded event loop for state monitoring
 - **Graceful Shutdown**: Proper cleanup of background processes on application exit
 - **UTC Timestamp Support**: Timestamp in UTC format
-- **Comprehensive Testing Setup**: Includes tests for main application, metrics module, and event loop
+- **Comprehensive Testing Setup**: 54 tests covering all components with high code coverage
 - **Code Formatting with Black**: Code formatting tool for consistent code style
 - **Linting with Ruff**: Code linting tool for code quality
 - **Conventional Commit Enforcement**: Commit messages follow conventional commit format
+
+## Configuration
+
+The application uses a comprehensive YAML-based configuration system with support for environment variable overrides.
+
+### YAML Configuration
+
+Create a configuration file using the built-in helper:
+
+```bash
+python -c "from src.catapult.config import create_default_config_file; create_default_config_file()"
+```
+
+This creates a `config.yaml` file with the following structure:
+
+```yaml
+catapult:
+  server:
+    host: "0.0.0.0"
+    port: 8000
+    reload: false
+    log_level: "info"
+  event_loop:
+    check_interval: 15
+    enabled: true
+  app_name: "Catapult API"
+  app_description: "A base HTTP API with Prometheus metrics"
+  app_version: "1.0.0"
+
+jira:
+  enabled: false
+  base_url: "https://yourcompany.atlassian.net"
+  username: "your-email@company.com"
+  api_token: "your-jira-api-token"
+  timeout: 30
+
+argocd:
+  enabled: false
+  base_url: "https://argocd.yourcompany.com"
+  username: "admin"
+  password: "your-argocd-password"
+  token: "your-argocd-token"
+  timeout: 30
+  verify_ssl: true
+
+firehydrant:
+  enabled: false
+  base_url: "https://api.firehydrant.io"
+  api_token: "your-firehydrant-token"
+  timeout: 30
+```
+
+### Environment Variables
+
+All configuration values can be overridden using environment variables:
+
+**Catapult Server Settings:**
+- `CATAPULT_SERVER_HOST` - Server host address
+- `CATAPULT_SERVER_PORT` - Server port number
+- `CATAPULT_LOG_LEVEL` - Logging level (debug, info, warning, error, critical)
+
+**Jira Configuration:**
+- `JIRA_ENABLED` - Enable/disable Jira integration (true/false)
+- `JIRA_BASE_URL` - Jira instance URL
+- `JIRA_USERNAME` - Jira username/email
+- `JIRA_API_TOKEN` - Jira API token
+
+**ArgoCD Configuration:**
+- `ARGOCD_ENABLED` - Enable/disable ArgoCD integration (true/false)
+- `ARGOCD_BASE_URL` - ArgoCD instance URL
+- `ARGOCD_USERNAME` - ArgoCD username
+- `ARGOCD_PASSWORD` - ArgoCD password
+- `ARGOCD_TOKEN` - ArgoCD API token
+
+**FireHydrant Configuration:**
+- `FIREHYDRANT_ENABLED` - Enable/disable FireHydrant integration (true/false)
+- `FIREHYDRANT_BASE_URL` - FireHydrant API URL
+- `FIREHYDRANT_API_TOKEN` - FireHydrant API token
+
+### External Services
+
+The application supports integration with three external services:
+
+- **Jira**: Issue tracking and project management
+- **ArgoCD**: GitOps continuous delivery
+- **FireHydrant**: Incident management
+
+When enabled, these services are checked during readiness probes and can be used by your application logic.
 
 ## Project Structure
 
