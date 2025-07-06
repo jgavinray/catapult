@@ -1,9 +1,0 @@
-releaseType: python
-packageName: catapult
-bumpMinorPreMajor: true
-bumpPatchForMinorPreMajor: true
-includeV: true
-releaseLabels:
-  - release
-  - release-please
-manifestFile: .release-please-manifest.json 
