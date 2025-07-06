@@ -1,3 +1,17 @@
+# Changelog
+
+## [0.0.1] - 2024-01-01
+
+### Added
+- Initial release of Catapult API
+- FastAPI application with Prometheus metrics
+- Background event loop for monitoring
+- YAML configuration system
+- Jira, ArgoCD, and FireHydrant client integration
+- Comprehensive test suite
+
+---
+
 # Release Notes - v1.0.0
 
 ## 🚀 Initial Release
