@@ -55,7 +55,10 @@ ENV/
 out/
 
 # Cursor
-.cursor/
+## Ignore everything in .cursor except these docs
+.cursor/*
+!.cursor/guidelines.md
+!.cursor/system-prompt.json
 
 # Windows
 Thumbs.db
